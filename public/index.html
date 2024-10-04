@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Busca de Boletins Internos - HMAPA (1995 á 2024)</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Busca de Boletins Internos - HMAPA (1995 á 2024)</h1>
+        <input type="text" id="searchTerm" placeholder="Digite o nome do militar">
+        <button id="searchBtn">Buscar</button>
+        <div id="results"></div>
+    </div>
+    <script>
+        document.getElementById('searchBtn').addEventListener('click', async () => {
+            const searchTerm = document.getElementById('searchTerm').value;
+            const response = await fetch(`/search?term=${encodeURIComponent(searchTerm)}`);
+            const results = await response.json();
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+            results.forEach(result => {
+                const p = document.createElement('p');
+                p.textContent = result;
+                resultsDiv.appendChild(p);
+            });
+        });
+    </script>
+</body>
+</html>
